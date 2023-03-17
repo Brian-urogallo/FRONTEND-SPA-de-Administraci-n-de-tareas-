@@ -1,0 +1,35 @@
+<app-progres-bar *ngIf="loading"></app-progres-bar>
+
+<div *ngIf="!loading" class="container">
+    <div class="title">
+        <h3>Lista de tareas</h3>
+        <button type="button" class="btn btn-success"
+        routerLink="/add">Nueva Tarea</button>
+    </div>
+
+    <table *ngIf="listTasks.length > 0" class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col">Tarea</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Estatus</th>
+            <th scope="col">Fecha de Inicio</th>
+            <th scope="col">Fecha de finalización</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-active" *ngFor="let item of listTasks">
+            <td >{{ item.title }}</td>
+            <td>{{ item.description }}</td>
+            <td>Pendiente</td>
+            <td>{{ item.dateInit }}</td>
+            <td>{{ item.dateEnd }}</td>
+            <td><button  [routerLink]="['/edit', item._id]" type="button" class="btn btn-info btn-sm">Editar</button>
+                <button (click)="deleteTask(item._id!)" type="button" class="btn btn-danger btn-sm ms-3">Finalizar Tarea</button>
+            </td>
+          </tr>    
+        </tbody>
+      </table>
+      <h3 *ngIf="listTasks.length == 0" class="mt-4 text-center">No hay ninguna tarea pendiente</h3>
+</div>
